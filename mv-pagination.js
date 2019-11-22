@@ -1,10 +1,6 @@
-import {
-  LitElement,
-  html,
-  css
-} from "https://cdn.jsdelivr.net/gh/manaty/mv-dependencies@master/web_modules/lit-element.js";
+import { LitElement, html, css } from "lit-element";
 
-import "./web_modules/mv-button/mv-button.js";
+import "mv-button";
 
 export class MvPagination extends LitElement {
   static get properties() {
