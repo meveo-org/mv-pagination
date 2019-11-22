@@ -4,7 +4,7 @@ import {
   css
 } from "https://cdn.jsdelivr.net/gh/manaty/mv-dependencies@master/web_modules/lit-element.js";
 
-import "./web_modules/mv-button.js";
+import "./web_modules/mv-button/mv-button.js";
 
 export class MvPagination extends LitElement {
   static get properties() {
