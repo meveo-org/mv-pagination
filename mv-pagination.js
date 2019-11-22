@@ -9,11 +9,11 @@ export class MvPagination extends LitElement {
       pages: { type: Number, attribute: true },
 
       // max-buttons must be an odd number >= 3, default 5
-      "max-buttons": { type: Number, attribute: true },
+      "max-buttons": { type: Number, reflect: true, attribute: true },
       // valid justify values are: "left", "right", or "center", default "center"
-      justify: { type: String, attribute: true },
+      justify: { type: String, reflect: true, attribute: true },
       // valid type values are: "button", "text", or "none", default "button"
-      type: { type: String, attribute: true }
+      type: { type: String, reflect: true, attribute: true }
     };
   }
 
@@ -200,15 +200,14 @@ export class MvPagination extends LitElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    this.isButtonType = this.type === "button";
+    if (this.isButtonType) {
+      this.setButtonProps();
+    }
     if (name === "page") {
       const value = parseInt(newValue, 10);
       this.isFirstPage = value === 1;
       this.isLastPage = value === this.pages;
-      this.isButtonType = this.type === "button";
-      this.pageGroup = [];
-      if (this.isButtonType) {
-        this.setButtonProps();
-      }
     }
     super.attributeChangedCallback(name, oldValue, newValue);
   }
@@ -216,6 +215,7 @@ export class MvPagination extends LitElement {
   setButtonProps() {
     const maxButtons = this["max-buttons"];
     const adjacentButtonCount = Math.floor(maxButtons / 2);
+    this.pageGroup = [];
     this.leftMostButton = this.page - adjacentButtonCount;
     this.rightMostButton = this.page + adjacentButtonCount;
     let start = 1;
