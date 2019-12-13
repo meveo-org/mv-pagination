@@ -68,6 +68,16 @@ export class MvPagination extends LitElement {
       .button-group mv-button:nth-last-child(2) {
         --mv-button-margin: 0 0 0 5px;
       }
+
+      .page-buttons {
+        font-size: var(--pagination-button-font-size, 16px);
+        font-weight: var(--pagination-button-font-weight, normal);
+      }
+
+      .page-buttons.large {
+        font-size: var(--pagination-button-font-size-large, 24px);
+        font-weight: var(--pagination-button-font-weight-large, bold);
+      }
 		`;
   }
 
@@ -100,7 +110,9 @@ export class MvPagination extends LitElement {
             .visible="${!this.isButtonType}"
             type="round"
           >
-            <slot name="first-button"> </slot>
+            <slot name="first-button">
+              <span class="page-buttons large">&laquo;</span>
+            </slot>
           </mv-button>
             
           
@@ -109,7 +121,9 @@ export class MvPagination extends LitElement {
             ?disabled="${this.isFirstPage}"
             type="round"
           >
-            <slot name="previous-button"> </slot>
+            <slot name="previous-button">
+              <span class="page-buttons large">&lsaquo;</span>
+            </slot>
           </mv-button>
 
           ${this.type === "text"
@@ -168,7 +182,9 @@ export class MvPagination extends LitElement {
             ?disabled="${this.isLastPage}"
             type="round"
           >
-            <slot name="next-button"> </slot>
+            <slot name="next-button">
+              <span class="page-buttons large">&rsaquo;</span>
+            </slot>
           </mv-button>
 
           <mv-button
@@ -177,7 +193,9 @@ export class MvPagination extends LitElement {
             .visible="${!this.isButtonType}"
             type="round"
           >
-            <slot name="last-button"> </slot>
+            <slot name="last-button">
+              <span class="page-buttons large">&raquo;</span>
+            </slot>
           </mv-button>
         </div>
       </div>

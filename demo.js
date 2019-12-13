@@ -106,12 +106,7 @@ export class MvPaginationDemo extends LitElement {
           .justify="${this.justify}"
           .max-buttons="${this["max-buttons"]}"
           @change-page="${this.handlePageChange}"
-        >
-          <span slot="first-button" class="page-buttons">&laquo;</span>
-          <span slot="previous-button" class="page-buttons">&lsaquo;</span>
-          <span slot="next-button" class="page-buttons">&rsaquo;</span>
-          <span slot="last-button" class="page-buttons">&raquo;</span>
-        </mv-pagination>
+        ></mv-pagination>
         <div class="parameters-container">
           <label for="type">Type: </label>
           <select
