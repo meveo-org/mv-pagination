@@ -108,7 +108,7 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(1)}"
             ?disabled="${this.isFirstPage}"
             .visible="${!this.isButtonType}"
-            type="round"
+            type="circle"
           >
             <slot name="first-button">
               <span class="page-buttons large">&laquo;</span>
@@ -119,7 +119,7 @@ export class MvPagination extends LitElement {
           <mv-button
             @button-clicked="${this.gotoPage(this.page - 1)}"
             ?disabled="${this.isFirstPage}"
-            type="round"
+            type="circle"
           >
             <slot name="previous-button">
               <span class="page-buttons large">&lsaquo;</span>
@@ -139,7 +139,7 @@ export class MvPagination extends LitElement {
                     @button-clicked="${this.gotoPage(1)}"
                     ?disabled="${this.isFirstPage}"
                     .visible="${this.showFirstPageButton}"
-                    type="round"
+                    type="circle"
                   >
                     <span class="page-buttons">1</span>
                   </mv-button>
@@ -154,7 +154,7 @@ export class MvPagination extends LitElement {
                       @button-clicked="${this.gotoPage(page)}"
                       ?selected="${page === this.page}"
                       ?disabled="${page === this.page}"
-                      type="round"
+                      type="circle"
                     >
                       <span class="page-buttons">${page}</span>
                     </mv-button>
@@ -169,7 +169,7 @@ export class MvPagination extends LitElement {
                     @button-clicked="${this.gotoPage(this.pages)}"
                     ?disabled="${this.isLastPage}"
                     .visible="${this.showLastPageButton}"
-                    type="round"
+                    type="circle"
                   >
                     <span class="page-buttons">${this.pages}</span>
                   </mv-button>
@@ -180,7 +180,7 @@ export class MvPagination extends LitElement {
           <mv-button
             @button-clicked="${this.gotoPage(this.page + 1)}"
             ?disabled="${this.isLastPage}"
-            type="round"
+            type="circle"
           >
             <slot name="next-button">
               <span class="page-buttons large">&rsaquo;</span>
@@ -191,7 +191,7 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(this.pages)}"
             ?disabled="${this.isLastPage}"
             .visible="${!this.isButtonType}"
-            type="round"
+            type="circle"
           >
             <slot name="last-button">
               <span class="page-buttons large">&raquo;</span>
