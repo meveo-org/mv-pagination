@@ -21,9 +21,9 @@ export class MvPagination extends LitElement {
     return css`
 			:host {
 				font-family: var(--font-family, Arial);
-				font-size: var(--font-size-m, 10pt);				
+				font-size: var(--font-size-m, 10pt);
       }
-      
+
       .mv-pagination-container {
         margin-top: var(--pagination-group-top-margin, 10px);
         display: flex;
@@ -45,7 +45,7 @@ export class MvPagination extends LitElement {
       .mv-pagination-group {
         display: flex;
         align-items: center;
-        justify-content: space-evenly;        
+        justify-content: space-evenly;
       }
 
       .button-group {
@@ -70,12 +70,12 @@ export class MvPagination extends LitElement {
       }
 
       .page-buttons {
-        font-size: var(--pagination-button-font-size, 16px);
+        font-size: var(--font-size-m, 16px);
         font-weight: var(--pagination-button-font-weight, normal);
       }
 
       .page-buttons.large {
-        font-size: var(--pagination-button-font-size-large, 24px);
+        font-size: var(--font-size-xxl, 24px);
         font-weight: var(--pagination-button-font-weight-large, bold);
       }
 		`;
@@ -103,7 +103,7 @@ export class MvPagination extends LitElement {
     return html`
       <div class="${containerClass}">
         <div class="mv-pagination-group">
-          
+
           <mv-button
             @button-clicked="${this.gotoPage(1)}"
             ?disabled="${this.isFirstPage}"
@@ -114,8 +114,8 @@ export class MvPagination extends LitElement {
               <span class="page-buttons large">&laquo;</span>
             </slot>
           </mv-button>
-            
-          
+
+
           <mv-button
             @button-clicked="${this.gotoPage(this.page - 1)}"
             ?disabled="${this.isFirstPage}"
@@ -147,7 +147,7 @@ export class MvPagination extends LitElement {
                   ${this.showLeftSeparator
                     ? html`<span class="page-buttons">...</span>`
                     : html``}
-                  
+
                   ${this.pageGroup.map(
                     page => html`
                     <mv-button
@@ -175,8 +175,8 @@ export class MvPagination extends LitElement {
                   </mv-button>
                 </div>
                 `
-              : html``}          
-            
+              : html``}
+
           <mv-button
             @button-clicked="${this.gotoPage(this.page + 1)}"
             ?disabled="${this.isLastPage}"
