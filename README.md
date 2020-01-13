@@ -31,4 +31,4 @@ To experiment with the MvPagination component.
 ></mv-pagination>
 ```
 
-You can also check this [demo](https://manaty.net/mv-pagination/)
+You can also check this [demo](https://pagination.meveo.org/)
