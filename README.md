@@ -7,7 +7,7 @@
 * Configurable max number of buttons for button style
 
 ## Dependencies
-* [mv-button](https://github.com/meveo-frontend/mv-button)
+* [mv-button](https://github.com/meveo-org/mv-button)
 
 ## Quick Start
 
