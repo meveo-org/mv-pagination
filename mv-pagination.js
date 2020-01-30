@@ -13,15 +13,19 @@ export class MvPagination extends LitElement {
       // valid justify values are: "left", "right", or "center", default "center"
       justify: { type: String, reflect: true, attribute: true },
       // valid type values are: "button", "text", or "none", default "button"
-      type: { type: String, reflect: true, attribute: true }
+      type: { type: String, reflect: true, attribute: true },
+
+      //  valid theme values are: "light", "dark"
+      //    default: "light"
+      theme: { type: String, attribute: true }
     };
   }
 
   static get styles() {
     return css`
-			:host {
-				font-family: var(--font-family, Arial);
-				font-size: var(--font-size-m, 10pt);
+	  :host {
+		font-family: var(--font-family, Arial);
+		font-size: var(--font-size-m, 10pt);
       }
 
       .mv-pagination-container {
@@ -78,7 +82,7 @@ export class MvPagination extends LitElement {
         font-size: var(--font-size-xxl, 24px);
         font-weight: var(--pagination-button-font-weight-large, bold);
       }
-		`;
+	`;
   }
 
   constructor() {
@@ -96,6 +100,7 @@ export class MvPagination extends LitElement {
     this.leftMostButton = 0;
     this.rightMostButton = 0;
     this.pageGroup = [];
+    this.theme = "light";
   }
 
   render() {
@@ -109,6 +114,7 @@ export class MvPagination extends LitElement {
             ?disabled="${this.isFirstPage}"
             .visible="${!this.isButtonType}"
             type="circle"
+            .theme="${this.theme}"
           >
             <slot name="first-button">
               <span class="page-buttons large">&laquo;</span>
@@ -120,6 +126,7 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(this.page - 1)}"
             ?disabled="${this.isFirstPage}"
             type="circle"
+            .theme="${this.theme}"
           >
             <slot name="previous-button">
               <span class="page-buttons large">&lsaquo;</span>
@@ -140,6 +147,7 @@ export class MvPagination extends LitElement {
                     ?disabled="${this.isFirstPage}"
                     .visible="${this.showFirstPageButton}"
                     type="circle"
+                    .theme="${this.theme}"
                   >
                     <span class="page-buttons">1</span>
                   </mv-button>
@@ -155,6 +163,7 @@ export class MvPagination extends LitElement {
                       ?selected="${page === this.page}"
                       ?disabled="${page === this.page}"
                       type="circle"
+                      .theme="${this.theme}"
                     >
                       <span class="page-buttons">${page}</span>
                     </mv-button>
@@ -170,6 +179,7 @@ export class MvPagination extends LitElement {
                     ?disabled="${this.isLastPage}"
                     .visible="${this.showLastPageButton}"
                     type="circle"
+                    .theme="${this.theme}"
                   >
                     <span class="page-buttons">${this.pages}</span>
                   </mv-button>
@@ -181,6 +191,7 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(this.page + 1)}"
             ?disabled="${this.isLastPage}"
             type="circle"
+            .theme="${this.theme}"
           >
             <slot name="next-button">
               <span class="page-buttons large">&rsaquo;</span>
@@ -192,6 +203,7 @@ export class MvPagination extends LitElement {
             ?disabled="${this.isLastPage}"
             .visible="${!this.isButtonType}"
             type="circle"
+            .theme="${this.theme}"
           >
             <slot name="last-button">
               <span class="page-buttons large">&raquo;</span>

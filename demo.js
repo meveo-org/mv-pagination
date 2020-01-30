@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit-element";
-
+import "mv-font-awesome";
 import "./mv-pagination.js";
 
 export class MvPaginationDemo extends LitElement {
@@ -10,17 +10,16 @@ export class MvPaginationDemo extends LitElement {
       type: { String: Number, reflect: true, attribute: false },
       justify: { type: String, reflect: true, attribute: false },
       updateValue: { type: Boolean, reflect: true, attribute: false },
-      hue: { type: Number, attribute: false, reflect: false },
-      saturation: { type: Number, attribute: false, reflect: false },
-      lightness: { type: Number, attribute: false, reflect: false }
+      open: { type: Boolean, attribute: true },
+      theme: { type: String, attribute: true }
     };
   }
 
   static get styles() {
     return css`
-			:host {
+	  :host {
         font-family: Arial;
-				font-size: 18px;
+		font-size: 18px;
       }
 
       @keyframes flash {
@@ -65,42 +64,15 @@ export class MvPaginationDemo extends LitElement {
         font-size: 18px;
       }
       
-      .slidecontainer {
-        width: 50%;
-      }
-      
-      .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 15px;
-        border-radius: 5px;
-        background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-      }
-      
-      .slider:hover {
-        opacity: 1;
-      }
-      
-      .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #4CAF50;
+      mv-fa[icon="lightbulb"] {
+        font-size: 50px;
         cursor: pointer;
+        margin: 20px;
       }
       
-      .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        background: #4CAF50;
-        cursor: pointer;
+      .theme {
+        display: flex;
+        justify-content: flex-start;
       }
     `;
   }
@@ -129,15 +101,16 @@ export class MvPaginationDemo extends LitElement {
       { value: 9, label: "9" }
     ];
     this.updateValue = false;
-    this.hue = 196;
-    this.saturation = 100;
-    this.lightness = 38;
+    this.open = true;
+    this.theme = "light";
   }
 
   render() {
     const valueClass = this.updateValue ? " updated" : "";
-    const color = `--mv-button-circle-background-color: hsl(${this.hue}, ${this.saturation}%, ${this.lightness}%);`;
     return html`
+      <div class="theme">
+        <mv-fa icon="lightbulb" style="color: ${this.open ? "yellow" : ""}" @click=${this.toggleLightBulb}></mv-fa>
+      </div>
       <div class="pagination-demo-container">
         <div class="value-container">
           Current page: <span class="page-value${valueClass}">
@@ -151,7 +124,7 @@ export class MvPaginationDemo extends LitElement {
           .justify="${this.justify}"
           .max-buttons="${this["max-buttons"]}"
           @change-page="${this.handlePageChange}"
-          style="${color}"
+          .theme="${this.theme}"
         ></mv-pagination>
         <div class="parameters-container">
           <label for="type">Type: </label>
@@ -210,19 +183,6 @@ export class MvPaginationDemo extends LitElement {
           `
             : html``}          
         </div>
-        <h3>Customize theme with HSL colors</h3>
-        Hue: ${this.hue}
-        <div class="slidecontainer">
-          <input type="range" min="1" max="360" value="${this.hue}" class="slider" @input="${this.changeHue}">
-        </div>
-        Saturation: ${this.saturation}%
-        <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="${this.saturation}" class="slider" @input="${this.changeSaturation}">
-        </div>
-        Lightness: ${this.lightness}%
-        <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="${this.lightness}" class="slider" @input="${this.changeLightness}">
-        </div>
       </div>
     `;
   }
@@ -252,16 +212,13 @@ export class MvPaginationDemo extends LitElement {
     this["max-buttons"] = value;
   }
 
-  changeHue = event => {
-    this.hue = event.currentTarget.value;
-  };
-
-  changeSaturation = event => {
-    this.saturation = event.currentTarget.value;
-  };
-
-  changeLightness = event => {
-    this.lightness = event.currentTarget.value;
+  toggleLightBulb = () => {
+    this.open = !this.open;
+    if (this.open) {
+      this.theme = "light";
+    } else {
+      this.theme = "dark";
+    }
   };
 }
 
