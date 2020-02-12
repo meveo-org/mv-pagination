@@ -23,9 +23,9 @@ export class MvPagination extends LitElement {
 
   static get styles() {
     return css`
-	  :host {
-		font-family: var(--font-family, Arial);
-		font-size: var(--font-size-m, 10pt);
+      :host {
+        font-family: var(--font-family, Arial);
+        font-size: var(--font-size-m, 10pt);
       }
 
       .mv-pagination-container {
@@ -56,7 +56,7 @@ export class MvPagination extends LitElement {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        background-color: #EAEBF0;
+        background-color: #eaebf0;
         border-radius: 55px;
         margin: 0px 15px;
         --mv-button-margin: 0 5px;
@@ -66,7 +66,6 @@ export class MvPagination extends LitElement {
       .button-group mv-button:nth-child(2) {
         --mv-button-margin: 0 5px 0 0;
       }
-
 
       .button-group mv-button:last-child,
       .button-group mv-button:nth-last-child(2) {
@@ -82,7 +81,7 @@ export class MvPagination extends LitElement {
         font-size: var(--font-size-xxl, 24px);
         font-weight: var(--pagination-button-font-weight-large, bold);
       }
-	`;
+    `;
   }
 
   constructor() {
@@ -108,7 +107,6 @@ export class MvPagination extends LitElement {
     return html`
       <div class="${containerClass}">
         <div class="mv-pagination-group">
-
           <mv-button
             @button-clicked="${this.gotoPage(1)}"
             ?disabled="${this.isFirstPage}"
@@ -120,7 +118,6 @@ export class MvPagination extends LitElement {
               <span class="page-buttons large">&laquo;</span>
             </slot>
           </mv-button>
-
 
           <mv-button
             @button-clicked="${this.gotoPage(this.page - 1)}"
@@ -138,9 +135,8 @@ export class MvPagination extends LitElement {
                 <span>${`Page ${this.page} of ${this.pages}`}</span>
               `
             : html``}
-
-            ${this.isButtonType
-              ? html`
+          ${this.isButtonType
+            ? html`
                 <div class="button-group">
                   <mv-button
                     @button-clicked="${this.gotoPage(1)}"
@@ -153,25 +149,27 @@ export class MvPagination extends LitElement {
                   </mv-button>
 
                   ${this.showLeftSeparator
-                    ? html`<span class="page-buttons">...</span>`
+                    ? html`
+                        <span class="page-buttons">...</span>
+                      `
                     : html``}
-
                   ${this.pageGroup.map(
                     page => html`
-                    <mv-button
-                      @button-clicked="${this.gotoPage(page)}"
-                      ?selected="${page === this.page}"
-                      ?disabled="${page === this.page}"
-                      type="circle"
-                      .theme="${this.theme}"
-                    >
-                      <span class="page-buttons">${page}</span>
-                    </mv-button>
+                      <mv-button
+                        @button-clicked="${this.gotoPage(page)}"
+                        ?selected="${page === this.page}"
+                        ?disabled="${page === this.page}"
+                        type="circle"
+                        .theme="${this.theme}"
+                      >
+                        <span class="page-buttons">${page}</span>
+                      </mv-button>
                     `
                   )}
-
                   ${this.showRightSeparator
-                    ? html`<span class="page-buttons">...</span>`
+                    ? html`
+                        <span class="page-buttons">...</span>
+                      `
                     : html``}
 
                   <mv-button
@@ -184,8 +182,8 @@ export class MvPagination extends LitElement {
                     <span class="page-buttons">${this.pages}</span>
                   </mv-button>
                 </div>
-                `
-              : html``}
+              `
+            : html``}
 
           <mv-button
             @button-clicked="${this.gotoPage(this.page + 1)}"

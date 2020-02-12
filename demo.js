@@ -17,9 +17,9 @@ export class MvPaginationDemo extends LitElement {
 
   static get styles() {
     return css`
-	  :host {
+      :host {
         font-family: Arial;
-		font-size: 18px;
+        font-size: 18px;
       }
 
       @keyframes flash {
@@ -36,13 +36,13 @@ export class MvPaginationDemo extends LitElement {
         display: flex;
         flex-direction: column;
         padding: 10px 10px 20px 10px;
-        border: 1px solid #BFBFBF;
+        border: 1px solid #bfbfbf;
         background-color: white;
         box-shadow: 10px 10px 5px #aaaaaa;
         margin: auto;
       }
 
-      .value-container {        
+      .value-container {
         font-size: 24px;
         margin: 20px auto;
       }
@@ -63,13 +63,13 @@ export class MvPaginationDemo extends LitElement {
       .parameters-container select {
         font-size: 18px;
       }
-      
+
       mv-fa[icon="lightbulb"] {
         font-size: 50px;
         cursor: pointer;
         margin: 20px;
       }
-      
+
       .theme {
         display: flex;
         justify-content: flex-start;
@@ -109,11 +109,16 @@ export class MvPaginationDemo extends LitElement {
     const valueClass = this.updateValue ? " updated" : "";
     return html`
       <div class="theme">
-        <mv-fa icon="lightbulb" style="color: ${this.open ? "yellow" : ""}" @click=${this.toggleLightBulb}></mv-fa>
+        <mv-fa
+          icon="lightbulb"
+          style="color: ${this.open ? "yellow" : ""}"
+          @click=${this.toggleLightBulb}
+        ></mv-fa>
       </div>
       <div class="pagination-demo-container">
         <div class="value-container">
-          Current page: <span class="page-value${valueClass}">
+          Current page:
+          <span class="page-value${valueClass}">
             ${this.page}
           </span>
         </div>
@@ -133,16 +138,16 @@ export class MvPaginationDemo extends LitElement {
             value="${this.type}"
             @change="${this.handleTypeChange}"
           >
-          ${this.types.map(
-            type => html`
-            <option
-              value="${type.value}"
-              ?selected="${this.type === type.value}"
-            >
-              ${type.label}
-            </option>
-          `
-          )}
+            ${this.types.map(
+              type => html`
+                <option
+                  value="${type.value}"
+                  ?selected="${this.type === type.value}"
+                >
+                  ${type.label}
+                </option>
+              `
+            )}
           </select>
           <label for="type">Justify: </label>
           <select
@@ -150,45 +155,47 @@ export class MvPaginationDemo extends LitElement {
             value="${this.justify}"
             @change="${this.handleJustifyChange}"
           >
-          ${this.justifyPositions.map(
-            justify => html`
-            <option
-              value="${justify.value}"
-              ?selected="${this.justify === justify.value}"
-            >
-              ${justify.label}
-            </option>
-          `
-          )}
+            ${this.justifyPositions.map(
+              justify => html`
+                <option
+                  value="${justify.value}"
+                  ?selected="${this.justify === justify.value}"
+                >
+                  ${justify.label}
+                </option>
+              `
+            )}
           </select>
           ${this.type === "button"
             ? html`
-            <label for="type">Max Buttons: </label>
-            <select
-              name="max-buttons"
-              value="${this["max-buttons"]}"
-              @change="${this.handleButtonsCountChange}"
-            >
-            ${this.buttonsShown.map(
-              buttonCount => html`
-              <option
-                value="${buttonCount.value}"
-                ?selected="${this["max-buttons"] === buttonCount.value}"
-              >
-                ${buttonCount.label}
-              </option>
-            `
-            )}
-            </select>
-          `
-            : html``}          
+                <label for="type">Max Buttons: </label>
+                <select
+                  name="max-buttons"
+                  value="${this["max-buttons"]}"
+                  @change="${this.handleButtonsCountChange}"
+                >
+                  ${this.buttonsShown.map(
+                    buttonCount => html`
+                      <option
+                        value="${buttonCount.value}"
+                        ?selected="${this["max-buttons"] === buttonCount.value}"
+                      >
+                        ${buttonCount.label}
+                      </option>
+                    `
+                  )}
+                </select>
+              `
+            : html``}
         </div>
       </div>
     `;
   }
 
   handlePageChange(event) {
-    const { detail: { page } } = event;
+    const {
+      detail: { page }
+    } = event;
     const that = this;
     this.page = parseInt(page, 10);
     this.updateValue = true;
@@ -198,17 +205,23 @@ export class MvPaginationDemo extends LitElement {
   }
 
   handleTypeChange(event) {
-    const { path: [{ value }] } = event;
+    const {
+      target: { value }
+    } = event;
     this.type = value;
   }
 
   handleJustifyChange(event) {
-    const { path: [{ value }] } = event;
+    const {
+      target: { value }
+    } = event;
     this.justify = value;
   }
 
   handleButtonsCountChange(event) {
-    const { path: [{ value }] } = event;
+    const {
+      target: { value }
+    } = event;
     this["max-buttons"] = value;
   }
 
