@@ -80,6 +80,11 @@ export class MvPagination extends LitElement {
       .page-buttons.large {
         font-size: var(--font-size-xxl, 24px);
         font-weight: var(--pagination-button-font-weight-large, bold);
+        height: 24px;
+        width: 24px;
+        display: inline-block;
+        position: relative;
+        top: -3px;
       }
     `;
   }
