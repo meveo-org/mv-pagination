@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit-element";
+import "mv-container";
 import "mv-font-awesome";
 import "./mv-pagination.js";
 
@@ -31,20 +32,17 @@ export class MvPaginationDemo extends LitElement {
         }
       }
 
-      .pagination-demo-container {
-        width: 960px;
-        display: flex;
-        flex-direction: column;
-        padding: 10px 10px 20px 10px;
-        border: 1px solid #bfbfbf;
-        background-color: white;
-        box-shadow: 10px 10px 5px #aaaaaa;
-        margin: auto;
+      mv-container {
+        --mv-container-min-width: 960px;
+        --mv-container-max-width: 960px;
+        --mv-container-padding: 10px 10px 20px 10px;
+        --mv-container-margin: auto;
       }
 
       .value-container {
         font-size: 24px;
         margin: 20px auto;
+        text-align: center;
       }
 
       .page-value {
@@ -58,6 +56,8 @@ export class MvPaginationDemo extends LitElement {
 
       .parameters-container {
         margin: 20px auto;
+        text-align: center;
+        font-size: 18px;
       }
 
       .parameters-container select {
@@ -101,22 +101,25 @@ export class MvPaginationDemo extends LitElement {
       { value: 9, label: "9" }
     ];
     this.updateValue = false;
-    this.open = true;
+    this.open = false;
     this.theme = "light";
   }
 
   render() {
     const valueClass = this.updateValue ? " updated" : "";
+    const iconColor = `color: ${this.open ? "yellow" : ""}`;
+    const containerTheme = this.open ? "light" : "dark";
+    const textColor = `color: ${this.open ? "" : "#FFFFFF"}`;
     return html`
       <div class="theme">
         <mv-fa
           icon="lightbulb"
-          style="color: ${this.open ? "yellow" : ""}"
+          style="${iconColor}"
           @click=${this.toggleLightBulb}
         ></mv-fa>
       </div>
-      <div class="pagination-demo-container">
-        <div class="value-container">
+      <mv-container .theme="${containerTheme}">
+        <div class="value-container" style="${textColor}">
           Current page:
           <span class="page-value${valueClass}">
             ${this.page}
@@ -131,7 +134,7 @@ export class MvPaginationDemo extends LitElement {
           @change-page="${this.handlePageChange}"
           .theme="${this.theme}"
         ></mv-pagination>
-        <div class="parameters-container">
+        <div class="parameters-container" style="${textColor}">
           <label for="type">Type: </label>
           <select
             name="type"
@@ -188,7 +191,7 @@ export class MvPaginationDemo extends LitElement {
               `
             : html``}
         </div>
-      </div>
+      </mv-container>
     `;
   }
 
@@ -228,9 +231,9 @@ export class MvPaginationDemo extends LitElement {
   toggleLightBulb = () => {
     this.open = !this.open;
     if (this.open) {
-      this.theme = "light";
-    } else {
       this.theme = "dark";
+    } else {
+      this.theme = "light";
     }
   };
 }

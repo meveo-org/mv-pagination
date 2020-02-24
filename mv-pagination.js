@@ -26,6 +26,14 @@ export class MvPagination extends LitElement {
       :host {
         font-family: var(--font-family, Arial);
         font-size: var(--font-size-m, 10pt);
+        --light-background: var(--mv-pagination-light-background, #EAEBF0);
+        --dark-background: var(--mv-pagination-dark-background, #3999C1);
+        --selected-light-background: var(--mv-pagination-selected-light-background, #008FC3);
+        --selected-dark-background: var(--mv-pagination-selected-dark-background, #23404C);
+        --light-color: var(--mv-pagination-light-color, #80828C);
+        --dark-color: var(--mv-pagination-dark-color, #FFFFFF);
+        --hover-light-background: var(--mv-pagination-hover-light-background, #FFFFFF);
+        --hover-dark-background: var(--mv-pagination-hover-dark-background, #007FAD);
       }
 
       .mv-pagination-container {
@@ -56,7 +64,7 @@ export class MvPagination extends LitElement {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        background-color: #eaebf0;
+        background-color: var(--background-color);
         border-radius: 55px;
         margin: 0px 15px;
         --mv-button-margin: 0 5px;
@@ -86,6 +94,26 @@ export class MvPagination extends LitElement {
         position: relative;
         top: -3px;
       }
+      
+      .current-page {
+        color: var(--mv-pagination-current-page-color);
+      }
+      
+      .light {
+        --mv-button-circle-background: var(--light-background);
+        --mv-button-light-background: var(--selected-light-background);
+        --background-color: var(--light-background);
+        --mv-button-circle-hover-background: var(--hover-light-background);
+        --mv-button-circle-color: var(--light-color);
+      }
+      
+      .dark {
+        --mv-button-circle-background: var(--dark-background);
+        --mv-button-light-background: var(--selected-dark-background);
+        --background-color: var(--dark-background);
+        --mv-button-circle-hover-background: var(--hover-dark-background);
+        --mv-button-circle-color: var(--dark-color);
+      }
     `;
   }
 
@@ -110,14 +138,13 @@ export class MvPagination extends LitElement {
   render() {
     const containerClass = `mv-pagination-container ${this.justify}`;
     return html`
-      <div class="${containerClass}">
+      <div class="${containerClass} ${this.theme}">
         <div class="mv-pagination-group">
           <mv-button
             @button-clicked="${this.gotoPage(1)}"
             ?disabled="${this.isFirstPage}"
             .visible="${!this.isButtonType}"
             type="circle"
-            .theme="${this.theme}"
           >
             <slot name="first-button">
               <span class="page-buttons large">&laquo;</span>
@@ -128,7 +155,6 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(this.page - 1)}"
             ?disabled="${this.isFirstPage}"
             type="circle"
-            .theme="${this.theme}"
           >
             <slot name="previous-button">
               <span class="page-buttons large">&lsaquo;</span>
@@ -137,7 +163,7 @@ export class MvPagination extends LitElement {
 
           ${this.type === "text"
             ? html`
-                <span>${`Page ${this.page} of ${this.pages}`}</span>
+                <span class="current-page">${`Page ${this.page} of ${this.pages}`}</span>
               `
             : html``}
           ${this.isButtonType
@@ -148,7 +174,6 @@ export class MvPagination extends LitElement {
                     ?disabled="${this.isFirstPage}"
                     .visible="${this.showFirstPageButton}"
                     type="circle"
-                    .theme="${this.theme}"
                   >
                     <span class="page-buttons">1</span>
                   </mv-button>
@@ -165,7 +190,6 @@ export class MvPagination extends LitElement {
                         ?selected="${page === this.page}"
                         ?disabled="${page === this.page}"
                         type="circle"
-                        .theme="${this.theme}"
                       >
                         <span class="page-buttons">${page}</span>
                       </mv-button>
@@ -182,7 +206,6 @@ export class MvPagination extends LitElement {
                     ?disabled="${this.isLastPage}"
                     .visible="${this.showLastPageButton}"
                     type="circle"
-                    .theme="${this.theme}"
                   >
                     <span class="page-buttons">${this.pages}</span>
                   </mv-button>
@@ -194,7 +217,6 @@ export class MvPagination extends LitElement {
             @button-clicked="${this.gotoPage(this.page + 1)}"
             ?disabled="${this.isLastPage}"
             type="circle"
-            .theme="${this.theme}"
           >
             <slot name="next-button">
               <span class="page-buttons large">&rsaquo;</span>
@@ -206,7 +228,6 @@ export class MvPagination extends LitElement {
             ?disabled="${this.isLastPage}"
             .visible="${!this.isButtonType}"
             type="circle"
-            .theme="${this.theme}"
           >
             <slot name="last-button">
               <span class="page-buttons large">&raquo;</span>
