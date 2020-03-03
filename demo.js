@@ -1,6 +1,5 @@
 import { LitElement, html, css } from "lit-element";
 import "mv-container";
-import "mv-font-awesome";
 import "./mv-pagination.js";
 
 export class MvPaginationDemo extends LitElement {
@@ -11,7 +10,6 @@ export class MvPaginationDemo extends LitElement {
       type: { String: Number, reflect: true, attribute: false },
       justify: { type: String, reflect: true, attribute: false },
       updateValue: { type: Boolean, reflect: true, attribute: false },
-      open: { type: Boolean, attribute: true },
       theme: { type: String, attribute: true }
     };
   }
@@ -64,15 +62,23 @@ export class MvPaginationDemo extends LitElement {
         font-size: 18px;
       }
 
-      mv-fa[icon="lightbulb"] {
-        font-size: 50px;
+      fieldset > label, label > input {
         cursor: pointer;
-        margin: 20px;
       }
-
-      .theme {
-        display: flex;
-        justify-content: flex-start;
+      
+      fieldset {
+        width: 130px;
+        margin-left: 10px;
+        border:2px solid red;
+        -moz-border-radius:8px;
+        -webkit-border-radius:8px;	
+        border-radius:8px;
+        color: #818181;
+      }
+      
+      legend {
+        font-weight: 500;
+        color: red;
       }
     `;
   }
@@ -101,24 +107,21 @@ export class MvPaginationDemo extends LitElement {
       { value: 9, label: "9" }
     ];
     this.updateValue = false;
-    this.open = false;
-    this.theme = "light";
+    this.theme = "dark";
   }
 
   render() {
     const valueClass = this.updateValue ? " updated" : "";
-    const iconColor = `color: ${this.open ? "yellow" : ""}`;
-    const containerTheme = this.open ? "light" : "dark";
-    const textColor = `color: ${this.open ? "" : "#FFFFFF"}`;
+    const isLightTheme = this.theme === "light";
+    const paginationTheme = isLightTheme ? "dark" : "light";
+    const textColor = `color: ${isLightTheme ? "" : "#FFFFFF"}`;
     return html`
-      <div class="theme">
-        <mv-fa
-          icon="lightbulb"
-          style="${iconColor}"
-          @click=${this.toggleLightBulb}
-        ></mv-fa>
-      </div>
-      <mv-container .theme="${containerTheme}">
+      <fieldset>
+        <legend>Theme</legend>
+        <label><input type="radio" name="theme" value="light" @change="${this.radioChange}" />Light</label>
+        <label><input type="radio" name="theme" value="dark" checked @change="${this.radioChange}" />Dark</label>
+      </fieldset>
+      <mv-container .theme="${this.theme}">
         <div class="value-container" style="${textColor}">
           Current page:
           <span class="page-value${valueClass}">
@@ -132,7 +135,7 @@ export class MvPaginationDemo extends LitElement {
           .justify="${this.justify}"
           .max-buttons="${this["max-buttons"]}"
           @change-page="${this.handlePageChange}"
-          .theme="${this.theme}"
+          .theme="${paginationTheme}"
         ></mv-pagination>
         <div class="parameters-container" style="${textColor}">
           <label for="type">Type: </label>
@@ -228,12 +231,12 @@ export class MvPaginationDemo extends LitElement {
     this["max-buttons"] = value;
   }
 
-  toggleLightBulb = () => {
-    this.open = !this.open;
-    if (this.open) {
-      this.theme = "dark";
-    } else {
+  radioChange = originalEvent => {
+    const { target: { value } } = originalEvent;
+    if (value === "light") {
       this.theme = "light";
+    } else {
+      this.theme = "dark";
     }
   };
 }
