@@ -70,9 +70,9 @@ export class MvPaginationDemo extends LitElement {
         width: 130px;
         margin-left: 10px;
         border:2px solid red;
-        -moz-border-radius:8px;
-        -webkit-border-radius:8px;	
-        border-radius:8px;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;	
+        border-radius: 8px;
         color: #818181;
       }
       
@@ -107,22 +107,20 @@ export class MvPaginationDemo extends LitElement {
       { value: 9, label: "9" }
     ];
     this.updateValue = false;
-    this.theme = "dark";
+    this.theme = "light";
   }
 
   render() {
     const valueClass = this.updateValue ? " updated" : "";
-    const isLightTheme = this.theme === "light";
-    const paginationTheme = isLightTheme ? "dark" : "light";
-    const textColor = `color: ${isLightTheme ? "" : "#FFFFFF"}`;
+    const { theme } = this;
     return html`
       <fieldset>
         <legend>Theme</legend>
-        <label><input type="radio" name="theme" value="light" @change="${this.radioChange}" />Light</label>
-        <label><input type="radio" name="theme" value="dark" checked @change="${this.radioChange}" />Dark</label>
+        <label><input type="radio" name="theme" value="light" checked @change="${this.changeTheme}" />Light</label>
+        <label><input type="radio" name="theme" value="dark" @change="${this.changeTheme}" />Dark</label>
       </fieldset>
-      <mv-container .theme="${this.theme}">
-        <div class="value-container" style="${textColor}">
+      <mv-container .theme="${theme}">
+        <div class="value-container">
           Current page:
           <span class="page-value${valueClass}">
             ${this.page}
@@ -135,9 +133,9 @@ export class MvPaginationDemo extends LitElement {
           .justify="${this.justify}"
           .max-buttons="${this["max-buttons"]}"
           @change-page="${this.handlePageChange}"
-          .theme="${paginationTheme}"
+          .theme="${theme}"
         ></mv-pagination>
-        <div class="parameters-container" style="${textColor}">
+        <div class="parameters-container">
           <label for="type">Type: </label>
           <select
             name="type"
@@ -231,13 +229,9 @@ export class MvPaginationDemo extends LitElement {
     this["max-buttons"] = value;
   }
 
-  radioChange = originalEvent => {
+  changeTheme = originalEvent => {
     const { target: { value } } = originalEvent;
-    if (value === "light") {
-      this.theme = "light";
-    } else {
-      this.theme = "dark";
-    }
+    this.theme = value;
   };
 }
 
