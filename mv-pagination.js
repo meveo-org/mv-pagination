@@ -5,19 +5,19 @@ import "mv-button";
 export class MvPagination extends LitElement {
   static get properties() {
     return {
-      page: { type: Number, reflect: true, attribute: true },
-      pages: { type: Number, attribute: true },
+      page: { type: Number },
+      pages: { type: Number },
 
       // max-buttons must be an odd number >= 3, default 5
-      "max-buttons": { type: Number, reflect: true, attribute: true },
+      "max-buttons": { type: Number },
       // valid justify values are: "left", "right", or "center", default "center"
-      justify: { type: String, reflect: true, attribute: true },
+      justify: { type: String },
       // valid type values are: "button", "text", or "none", default "button"
-      type: { type: String, reflect: true, attribute: true },
+      type: { type: String },
 
       //  valid theme values are: "light", "dark"
       //    default: "light"
-      theme: { type: String, attribute: true }
+      theme: { type: String, attribute: true },
     };
   }
 
@@ -26,14 +26,26 @@ export class MvPagination extends LitElement {
       :host {
         font-family: var(--font-family, Arial);
         font-size: var(--font-size-m, 10pt);
-        --light-background: var(--mv-pagination-light-background, #EAEBF0);
-        --dark-background: var(--mv-pagination-dark-background, #3999C1);
-        --selected-light-background: var(--mv-pagination-selected-light-background, #008FC3);
-        --selected-dark-background: var(--mv-pagination-selected-dark-background, #23404C);
-        --light-color: var(--mv-pagination-light-color, #80828C);
-        --dark-color: var(--mv-pagination-dark-color, #FFFFFF);
-        --hover-light-background: var(--mv-pagination-hover-light-background, #FFFFFF);
-        --hover-dark-background: var(--mv-pagination-hover-dark-background, #007FAD);
+        --light-background: var(--mv-pagination-light-background, #eaebf0);
+        --dark-background: var(--mv-pagination-dark-background, #3999c1);
+        --selected-light-background: var(
+          --mv-pagination-selected-light-background,
+          #008fc3
+        );
+        --selected-dark-background: var(
+          --mv-pagination-selected-dark-background,
+          #23404c
+        );
+        --light-color: var(--mv-pagination-light-color, #80828c);
+        --dark-color: var(--mv-pagination-dark-color, #ffffff);
+        --hover-light-background: var(
+          --mv-pagination-hover-light-background,
+          #ffffff
+        );
+        --hover-dark-background: var(
+          --mv-pagination-hover-dark-background,
+          #007fad
+        );
       }
 
       .mv-pagination-container {
@@ -94,11 +106,11 @@ export class MvPagination extends LitElement {
         position: relative;
         top: -6px;
       }
-      
+
       .current-page {
         color: var(--mv-pagination-current-page-color);
       }
-      
+
       .light {
         --mv-button-circle-background: var(--light-background);
         --mv-button-light-background: var(--selected-light-background);
@@ -106,7 +118,7 @@ export class MvPagination extends LitElement {
         --mv-button-circle-hover-background: var(--hover-light-background);
         --mv-button-circle-color: var(--light-color);
       }
-      
+
       .dark {
         --mv-button-circle-background: var(--dark-background);
         --mv-button-light-background: var(--selected-dark-background);
@@ -163,7 +175,9 @@ export class MvPagination extends LitElement {
 
           ${this.type === "text"
             ? html`
-                <span class="current-page">${`Page ${this.page} of ${this.pages}`}</span>
+                <span class="current-page"
+                  >${`Page ${this.page} of ${this.pages}`}</span
+                >
               `
             : html``}
           ${this.isButtonType
@@ -179,12 +193,10 @@ export class MvPagination extends LitElement {
                   </mv-button>
 
                   ${this.showLeftSeparator
-                    ? html`
-                        <span class="page-buttons">...</span>
-                      `
+                    ? html` <span class="page-buttons">...</span> `
                     : html``}
                   ${this.pageGroup.map(
-                    page => html`
+                    (page) => html`
                       <mv-button
                         @button-clicked="${this.gotoPage(page)}"
                         ?selected="${page === this.page}"
@@ -196,9 +208,7 @@ export class MvPagination extends LitElement {
                     `
                   )}
                   ${this.showRightSeparator
-                    ? html`
-                        <span class="page-buttons">...</span>
-                      `
+                    ? html` <span class="page-buttons">...</span> `
                     : html``}
 
                   <mv-button
