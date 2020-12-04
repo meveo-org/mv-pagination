@@ -5,15 +5,15 @@ import "mv-button";
 export class MvPagination extends LitElement {
   static get properties() {
     return {
-      page: { type: Number, reflect: true, attribute: true },
-      pages: { type: Number, attribute: true },
+      page: { type: Number, attribute: true, reflect: true },
+      pages: { type: Number, attribute: true, reflect: true },
 
       // max-buttons must be an odd number >= 3, default 5
-      "max-buttons": { type: Number, reflect: true, attribute: true },
+      "max-buttons": { type: Number, attribute: true, reflect: true },
       // valid justify values are: "left", "right", or "center", default "center"
-      justify: { type: String, reflect: true, attribute: true },
+      justify: { type: String, attribute: true, reflect: true },
       // valid type values are: "button", "text", or "none", default "button"
-      type: { type: String, reflect: true, attribute: true },
+      type: { type: String, attribute: true, reflect: true },
 
       //  valid theme values are: "light", "dark"
       //    default: "light"
