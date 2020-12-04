@@ -273,6 +273,10 @@ export class MvPagination extends LitElement {
       this.isFirstPage = value === 1;
       this.isLastPage = value === this.pages;
     }
+    if (name === "pages") {
+      const value = parseInt(newValue, 10);
+      this.isLastPage = value === this.page;
+    }
     super.attributeChangedCallback(name, oldValue, newValue);
   }
 
