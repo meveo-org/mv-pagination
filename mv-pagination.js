@@ -150,103 +150,105 @@ export class MvPagination extends LitElement {
 
   render() {
     const containerClass = `mv-pagination-container ${this.justify}`;
-    return html`
-      <div class="${containerClass} ${this.theme}">
-        <div class="mv-pagination-group">
-          <mv-button
-            @button-clicked="${this.gotoPage(1)}"
-            ?disabled="${this.isFirstPage}"
-            .visible="${!this.isButtonType}"
-            type="circle"
-          >
-            <slot name="first-button">
-              <span class="page-buttons large">&laquo;</span>
-            </slot>
-          </mv-button>
+    return this.isHidden
+      ? html``
+      : html`
+          <div class="${containerClass} ${this.theme}">
+            <div class="mv-pagination-group">
+              <mv-button
+                @button-clicked="${this.gotoPage(1)}"
+                ?disabled="${this.isFirstPage}"
+                .visible="${!this.isButtonType}"
+                type="circle"
+              >
+                <slot name="first-button">
+                  <span class="page-buttons large">&laquo;</span>
+                </slot>
+              </mv-button>
 
-          <mv-button
-            @button-clicked="${this.gotoPage(this.page - 1)}"
-            ?disabled="${this.isFirstPage}"
-            type="circle"
-          >
-            <slot name="previous-button">
-              <span class="page-buttons large">&lsaquo;</span>
-            </slot>
-          </mv-button>
+              <mv-button
+                @button-clicked="${this.gotoPage(this.page - 1)}"
+                ?disabled="${this.isFirstPage}"
+                type="circle"
+              >
+                <slot name="previous-button">
+                  <span class="page-buttons large">&lsaquo;</span>
+                </slot>
+              </mv-button>
 
-          ${this.type === "text"
-            ? html`
-                <span class="current-page">
-                  ${`Page ${this.page} of ${this.pages}`}
-                </span>
-              `
-            : html``}
-          ${this.isButtonType
-            ? html`
-                <div class="button-group">
-                  <mv-button
-                    @button-clicked="${this.gotoPage(1)}"
-                    ?disabled="${this.isFirstPage}"
-                    .visible="${this.showFirstPageButton}"
-                    type="circle"
-                  >
-                    <span class="page-buttons">1</span>
-                  </mv-button>
-
-                  ${this.showLeftSeparator
-                    ? html` <span class="page-buttons">...</span> `
-                    : html``}
-                  ${this.pageGroup.map(
-                    (page) => html`
+              ${this.type === "text"
+                ? html`
+                    <span class="current-page">
+                      ${`Page ${this.page} of ${this.pages}`}
+                    </span>
+                  `
+                : html``}
+              ${this.isButtonType
+                ? html`
+                    <div class="button-group">
                       <mv-button
-                        @button-clicked="${this.gotoPage(page)}"
-                        ?selected="${page === this.page}"
-                        ?disabled="${page === this.page}"
+                        @button-clicked="${this.gotoPage(1)}"
+                        ?disabled="${this.isFirstPage}"
+                        .visible="${this.showFirstPageButton}"
                         type="circle"
                       >
-                        <span class="page-buttons">${page}</span>
+                        <span class="page-buttons">1</span>
                       </mv-button>
-                    `
-                  )}
-                  ${this.showRightSeparator
-                    ? html` <span class="page-buttons">...</span> `
-                    : html``}
 
-                  <mv-button
-                    @button-clicked="${this.gotoPage(this.pages)}"
-                    ?disabled="${this.isLastPage}"
-                    .visible="${this.showLastPageButton}"
-                    type="circle"
-                  >
-                    <span class="page-buttons">${this.pages}</span>
-                  </mv-button>
-                </div>
-              `
-            : html``}
+                      ${this.showLeftSeparator
+                        ? html` <span class="page-buttons">...</span> `
+                        : html``}
+                      ${this.pageGroup.map(
+                        (page) => html`
+                          <mv-button
+                            @button-clicked="${this.gotoPage(page)}"
+                            ?selected="${page === this.page}"
+                            ?disabled="${page === this.page}"
+                            type="circle"
+                          >
+                            <span class="page-buttons">${page}</span>
+                          </mv-button>
+                        `
+                      )}
+                      ${this.showRightSeparator
+                        ? html` <span class="page-buttons">...</span> `
+                        : html``}
 
-          <mv-button
-            @button-clicked="${this.gotoPage(this.page + 1)}"
-            ?disabled="${this.isLastPage}"
-            type="circle"
-          >
-            <slot name="next-button">
-              <span class="page-buttons large">&rsaquo;</span>
-            </slot>
-          </mv-button>
+                      <mv-button
+                        @button-clicked="${this.gotoPage(this.pages)}"
+                        ?disabled="${this.isLastPage}"
+                        .visible="${this.showLastPageButton}"
+                        type="circle"
+                      >
+                        <span class="page-buttons">${this.pages}</span>
+                      </mv-button>
+                    </div>
+                  `
+                : html``}
 
-          <mv-button
-            @button-clicked="${this.gotoPage(this.pages)}"
-            ?disabled="${this.isLastPage}"
-            .visible="${!this.isButtonType}"
-            type="circle"
-          >
-            <slot name="last-button">
-              <span class="page-buttons large">&raquo;</span>
-            </slot>
-          </mv-button>
-        </div>
-      </div>
-    `;
+              <mv-button
+                @button-clicked="${this.gotoPage(this.page + 1)}"
+                ?disabled="${this.isLastPage}"
+                type="circle"
+              >
+                <slot name="next-button">
+                  <span class="page-buttons large">&rsaquo;</span>
+                </slot>
+              </mv-button>
+
+              <mv-button
+                @button-clicked="${this.gotoPage(this.pages)}"
+                ?disabled="${this.isLastPage}"
+                .visible="${!this.isButtonType}"
+                type="circle"
+              >
+                <slot name="last-button">
+                  <span class="page-buttons large">&raquo;</span>
+                </slot>
+              </mv-button>
+            </div>
+          </div>
+        `;
   }
 
   connectedCallback() {
