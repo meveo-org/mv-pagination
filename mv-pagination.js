@@ -137,6 +137,7 @@ export class MvPagination extends LitElement {
     this.justify = "center";
     this.type = "button";
     this.isButtonType = true;
+    this.isHidden = true;
     this.showLeftSeparator = false;
     this.showRightSeparator = false;
     this.showFirstPageButton = false;
@@ -252,6 +253,7 @@ export class MvPagination extends LitElement {
     const { page, pages } = this;
     this.isFirstPage = page === 1;
     this.isLastPage = page === pages;
+    this.setVisibility(page, pages);
     if (this.type === "button") {
       const maxButtons = this["max-buttons"];
       const isEven = maxButtons % 2 === 0;
@@ -272,13 +274,19 @@ export class MvPagination extends LitElement {
       const value = parseInt(newValue, 10);
       this.isFirstPage = value === 1;
       this.isLastPage = value === this.pages;
+      this.setVisibility(newValue, this.pages);
     }
     if (name === "pages") {
       const value = parseInt(newValue, 10);
       this.isLastPage = value === this.page;
+      this.setVisibility(this.page, newValue);
     }
     super.attributeChangedCallback(name, oldValue, newValue);
   }
+
+  setVisibility = (page, pages) => {
+    this.isHidden = page < 1 || pages < 1;
+  };
 
   setButtonProps() {
     const maxButtons = this["max-buttons"];
