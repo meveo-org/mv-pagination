@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit-element";
 
-import "mv-button";
+import "@meveo-org/mv-button";
 
 export class MvPagination extends LitElement {
   static get properties() {

@@ -1,0 +1,25 @@
+{
+  "name": "@meveo-org/mv-pagination",
+  "version": "1.0.0",
+  "description": "MvPagination is a Meveo pagination component (based on lit-element) that provides pagination buttons.",
+  "main": "mv-pagination.js",
+  "scripts": {
+    "serve": "es-dev-server --node-resolve --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meveo-org/mv-pagination.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meveo-org/mv-pagination/issues"
+  },
+  "homepage": "https://github.com/meveo-org/mv-pagination#readme",
+  "dependencies": {
+    "@meveo-org/mv-button": "^1.0.0"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.46.1"
+  }
+}
