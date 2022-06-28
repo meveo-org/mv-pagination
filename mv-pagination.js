@@ -149,6 +149,11 @@ export class MvPagination extends LitElement {
 
   render() {
     const containerClass = `mv-pagination-container ${this.justify}`;
+    const isFirstPage = this.page === 1;
+    const isLastPage = this.page === this.pages;
+
+    this.setVisibility(this.page, this.pages);
+
     return this.isHidden
       ? html``
       : html`
@@ -156,7 +161,7 @@ export class MvPagination extends LitElement {
             <div class="mv-pagination-group">
               <mv-button
                 @button-clicked="${this.gotoPage(1)}"
-                ?disabled="${this.isFirstPage}"
+                ?disabled="${isFirstPage}"
                 .visible="${!this.isButtonType}"
                 type="circle"
               >
@@ -167,7 +172,7 @@ export class MvPagination extends LitElement {
 
               <mv-button
                 @button-clicked="${this.gotoPage(this.page - 1)}"
-                ?disabled="${this.isFirstPage}"
+                ?disabled="${isFirstPage}"
                 type="circle"
               >
                 <slot name="previous-button">
@@ -187,7 +192,7 @@ export class MvPagination extends LitElement {
                     <div class="button-group">
                       <mv-button
                         @button-clicked="${this.gotoPage(1)}"
-                        ?disabled="${this.isFirstPage}"
+                        ?disabled="${isFirstPage}"
                         .visible="${this.showFirstPageButton}"
                         type="circle"
                       >
@@ -202,7 +207,7 @@ export class MvPagination extends LitElement {
                           <mv-button
                             @button-clicked="${this.gotoPage(page)}"
                             ?selected="${page === this.page}"
-                            ?disabled="${page === this.page}"
+                            ?disabled="${page > this.pages}"
                             type="circle"
                           >
                             <span class="page-buttons">${page}</span>
@@ -215,7 +220,7 @@ export class MvPagination extends LitElement {
 
                       <mv-button
                         @button-clicked="${this.gotoPage(this.pages)}"
-                        ?disabled="${this.isLastPage}"
+                        ?disabled="${isLastPage}"
                         .visible="${this.showLastPageButton}"
                         type="circle"
                       >
@@ -224,10 +229,9 @@ export class MvPagination extends LitElement {
                     </div>
                   `
                 : html``}
-
               <mv-button
                 @button-clicked="${this.gotoPage(this.page + 1)}"
-                ?disabled="${this.isLastPage}"
+                ?disabled="${isLastPage}"
                 type="circle"
               >
                 <slot name="next-button">
@@ -237,7 +241,7 @@ export class MvPagination extends LitElement {
 
               <mv-button
                 @button-clicked="${this.gotoPage(this.pages)}"
-                ?disabled="${this.isLastPage}"
+                ?disabled="${isLastPage}"
                 .visible="${!this.isButtonType}"
                 type="circle"
               >
@@ -270,17 +274,6 @@ export class MvPagination extends LitElement {
     this.isButtonType = this.type === "button";
     if (this.isButtonType) {
       this.setButtonProps();
-    }
-    if (name === "page") {
-      const value = parseInt(newValue, 10);
-      this.isFirstPage = value === 1;
-      this.isLastPage = value === this.pages;
-      this.setVisibility(newValue, this.pages);
-    }
-    if (name === "pages") {
-      const value = parseInt(newValue, 10);
-      this.isLastPage = value === this.page;
-      this.setVisibility(this.page, newValue);
     }
     super.attributeChangedCallback(name, oldValue, newValue);
   }
